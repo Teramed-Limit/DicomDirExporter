@@ -1,0 +1,12 @@
+
+packages/
+
+DicomDirExporter/obj/
+DicomDirExporter/bin/
+
+DicomDirExporter/Release/
+DicomDirExporter/Debug/
+
+DicomDirExporterSetup/Release/
+
+.vs/

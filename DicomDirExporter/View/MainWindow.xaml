@@ -1,0 +1,197 @@
+﻿<Window
+    x:Class="DicomDirExporter.View.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DicomDirExporter.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="MainWin"
+    Title="BurnWorkStation"
+    Width="1440"
+    Background="{DynamicResource MaterialDesignPaper}"
+    DataContext="{Binding Source={StaticResource Locator}}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    Style="{StaticResource StandardStyle}"
+    TextElement.FontSize="16"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:SettingPage}">
+            <local:SettingPage />
+        </DataTemplate>
+    </Window.Resources>
+
+    <materialDesign:DialogHost
+        CloseOnClickAway="True"
+        DialogContent="{Binding Main.DialogContent}"
+        DialogTheme="Inherit"
+        Identifier="RootDialog"
+        IsOpen="{Binding Main.IsDialogOpen}"
+        SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+
+
+        <!-- <materialDesign:DialogHost.DialogContent> -->
+        <!--     <StackPanel Margin="16"> -->
+        <!--  <ProgressBar  -->
+        <!--  Margin="16"  -->
+        <!--  HorizontalAlignment="Center"  -->
+        <!--  IsIndeterminate="True"  -->
+        <!--  Style="{DynamicResource MaterialDesignCircularProgressBar}"  -->
+        <!--  Value="0" />  -->
+        <!--  <Button  -->
+        <!--  HorizontalAlignment="Center"  -->
+        <!--  VerticalAlignment="Center"  -->
+        <!--  Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  -->
+        <!--  Content="Cancel"  -->
+        <!--  Style="{StaticResource MaterialDesignFlatButton}" />  -->
+        <!--     </StackPanel> -->
+        <!-- </materialDesign:DialogHost.DialogContent> -->
+
+        <Grid>
+
+            <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+                <materialDesign:DrawerHost.LeftDrawerContent>
+                    <StackPanel Margin="16">
+                        <ToggleButton
+                            Margin="0,0,0,20"
+                            HorizontalAlignment="Center"
+                            IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"
+                            Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                        <ItemsControl ItemsSource="{Binding Main.Pages}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button
+                                            MinWidth="170"
+                                            Margin="4"
+                                            HorizontalAlignment="Center"
+                                            Command="{Binding Source={StaticResource Locator}, Path=Main.NavigatePageCommand}"
+                                            CommandParameter="{Binding Name}"
+                                            Style="{DynamicResource MaterialDesignFlatButton}">
+                                            <StackPanel
+                                                MinWidth="130"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Orientation="Horizontal">
+                                                <materialDesign:PackIcon
+                                                    Width="24"
+                                                    Height="24"
+                                                    Margin="0,0,8,0"
+                                                    Kind="{Binding Icon}" />
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{Binding Active}"
+                                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                                    Text="{Binding Name}" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </materialDesign:DrawerHost.LeftDrawerContent>
+
+                <DockPanel LastChildFill="True">
+
+                    <!--  Tool bar  -->
+                    <materialDesign:ColorZone
+                        Padding="16"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        ClipToBounds="False"
+                        DockPanel.Dock="Top"
+                        Mode="PrimaryMid">
+                        <DockPanel>
+                            <ToggleButton
+                                x:Name="MenuToggleButton"
+                                AutomationProperties.Name="HamburgerToggleButton"
+                                IsChecked="False"
+                                Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+
+                            <Button
+                                HorizontalAlignment="Left"
+                                Background="Transparent"
+                                BorderBrush="{x:Null}"
+                                Command="{Binding Main.CloseCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                DockPanel.Dock="Right"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
+                                <materialDesign:PackIcon
+                                    Width="24"
+                                    Height="24"
+                                    Kind="Power" />
+                            </Button>
+
+                            <Button
+                                HorizontalAlignment="Left"
+                                Background="Transparent"
+                                BorderBrush="{x:Null}"
+                                Command="{Binding Main.ToggleWinCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                DockPanel.Dock="Right"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
+                                <materialDesign:PackIcon
+                                    Width="24"
+                                    Height="24"
+                                    Kind="WindowRestore" />
+                            </Button>
+
+                            <Button
+                                HorizontalAlignment="Left"
+                                Background="Transparent"
+                                BorderBrush="{x:Null}"
+                                Command="{Binding Main.MinimizedCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                DockPanel.Dock="Right"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
+                                <materialDesign:PackIcon
+                                    Width="24"
+                                    Height="24"
+                                    Kind="WindowMinimize" />
+                            </Button>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
+                                    <StackPanel>
+                                        <Button
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Command="{Binding Main.OpenAboutDialogCommand}"
+                                            Content="About" />
+                                    </StackPanel>
+                                </materialDesign:PopupBox>
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                    Text="Disk Publisher Station" />
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:ColorZone>
+
+                    <!--  Navigation Content  -->
+                    <ContentControl Content="{Binding Main.CurrentPage}" />
+                </DockPanel>
+
+            </materialDesign:DrawerHost>
+
+            <materialDesign:Snackbar
+                x:Name="MainSnackbar"
+                Margin="0,0,0,40"
+                Background="{Binding Main.SnackbarMessenger.SnackbarType, Converter={StaticResource SnackbarTypeConverter}}"
+                MessageQueue="{Binding Main.SnackbarMessenger.SnackbarMessageQueue}" />
+
+        </Grid>
+
+    </materialDesign:DialogHost>
+</Window>

@@ -1,0 +1,84 @@
+﻿<UserControl
+    x:Class="DicomDirExporter.View.Dialog.AboutDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="600"
+    Height="Auto"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="16"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d">
+
+    <StackPanel Margin="16">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel FlowDirection="LeftToRight" Orientation="Vertical">
+                <Label Content="About this software :" FontWeight="Bold" />
+                <Image
+                    Width="100"
+                    Height="30"
+                    Margin="5,5,0,0"
+                    HorizontalAlignment="Left"
+                    Source="../../Resource/TeraMed_logo.png" />
+                <RichTextBox
+                    Margin="5,0,5,0"
+                    BorderThickness="0"
+                    FontSize="14"
+                    IsReadOnly="True">
+                    <FlowDocument LineHeight="1">
+                        <Paragraph>
+                            This software was written and built by TeraMed Ltd.
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+                <Label Content="" />
+                <Label Content="RepoDB : " FontWeight="Bold" />
+                <RichTextBox
+                    Margin="5,0,5,0"
+                    BorderThickness="0"
+                    FontSize="14"
+                    IsReadOnly="True">
+                    <FlowDocument LineHeight="1">
+                        <Paragraph>
+                            A hybrid ORM library for .NET.
+                        </Paragraph>
+                        <Paragraph>
+                            <Underline>https://github.com/mikependon/RepoDB</Underline>
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+                <Label Content="" />
+                <Label Content="Material Design In XAML Toolkit : " FontWeight="Bold" />
+                <RichTextBox
+                    Margin="5,0,5,0"
+                    BorderThickness="0"
+                    FontSize="14"
+                    IsReadOnly="True">
+                    <FlowDocument LineHeight="1">
+                        <Paragraph>
+                            Material Design styles for all major WPF Framework controls
+                        </Paragraph>
+                        <Paragraph>
+                            <Underline>https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit</Underline>
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+                <Label Content="" />
+                <Label Content="License (apache v2.0)" />
+                <Label Content="License (MIT)" />
+            </StackPanel>
+        </ScrollViewer>
+        <Button
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+            Content="OK"
+            Style="{StaticResource MaterialDesignFlatButton}" />
+    </StackPanel>
+
+</UserControl>

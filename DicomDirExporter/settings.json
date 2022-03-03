@@ -1,0 +1,23 @@
+{
+  "DbSetting": {
+    "UserId": "sa",
+    "Password": "admin",
+    "DatabaseName": "DicomDirExporter",
+    "ServerName": "DESKTOP-B9C5ESL"
+  },
+  "PacsSetting": [
+    {
+      "Name": "AE1",
+      "CallingAe": "SCU1"
+    }
+  ],
+  "ServerSetting": {
+    "ServerAe": "STORESCP",
+    "Port": 1222
+  },
+  "OtherSetting": {
+    "DefaultCDViewerPath": "C:\\Program Files\\I-SoftViewer\\I-SoftViewerBurnWorkStation\\CDViewer\\",
+    "ExamKeepDays": 30,
+    "DiskMinimumAllowableVolume": 2048
+  }
+}

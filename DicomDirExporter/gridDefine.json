@@ -1,0 +1,32 @@
+{
+  "HistoryGridQueryCondition": [
+    {
+      "Key": "PatientID",
+      "Label": "Patient ID",
+      "Visible": true,
+      "Type": "TextBox",
+      "Operation": "Equal"
+    },
+    {
+      "Key": "AccessionNumber",
+      "Label": "AccessionNumber",
+      "Visible": true,
+      "Type": "TextBox",
+      "Operation": "Equal"
+    },
+    {
+      "Key": "StudyDate",
+      "Label": "Start Date",
+      "Visible": true,
+      "Type": "DatePicker",
+      "Operation": "Between"
+    },
+    {
+      "Key": "StudyDate",
+      "Label": "End Date",
+      "Visible": true,
+      "Type": "DatePicker",
+      "Operation": "Between"
+    }
+  ]
+}
