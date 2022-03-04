@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DicomDirExporter", "DicomDirExporter\DicomDirExporter.csproj", "{7875594A-67A3-4A3F-ADEE-AC51D1A6037D}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DicomDirExporterSetup", "DicomDirExporterSetup\DicomDirExporterSetup.vdproj", "{181E3187-4C56-4E13-B3DF-02A280F9B052}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{7875594A-67A3-4A3F-ADEE-AC51D1A6037D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7875594A-67A3-4A3F-ADEE-AC51D1A6037D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7875594A-67A3-4A3F-ADEE-AC51D1A6037D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{181E3187-4C56-4E13-B3DF-02A280F9B052}.Debug|Any CPU.ActiveCfg = Debug
+		{181E3187-4C56-4E13-B3DF-02A280F9B052}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
