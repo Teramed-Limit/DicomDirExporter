@@ -200,19 +200,28 @@
     <Compile Include="Converter\ThicknessToDoubleConverter.cs" />
     <Compile Include="Converter\SnackbarTypeConverter.cs" />
     <Compile Include="Converter\StatusWidthConverter.cs" />
+    <Compile Include="DicomService\CEchoSCU.cs" />
+    <Compile Include="DicomService\CFindSCU.cs" />
+    <Compile Include="DicomService\CMoveSCU.cs" />
+    <Compile Include="DicomService\ServiceBaseSCU.cs" />
     <Compile Include="Enumerate\SnackbarType.cs" />
+    <Compile Include="Helper\DicomOperatorHelper.cs" />
     <Compile Include="Helper\PasswordBoxBindingHelper.cs" />
     <Compile Include="Helper\ScrollSynchronizer.cs" />
+    <Compile Include="Interface\IDicomSCUSetting.cs" />
+    <Compile Include="Interface\IDicomServiceSCU.cs" />
     <Compile Include="Interface\IPage.cs" />
     <Compile Include="Logic\MainSnackbarMessageQueue.cs" />
     <Compile Include="Model\AppConfig\GridDefine.cs" />
     <Compile Include="Model\Dashboard.cs" />
     <Compile Include="Model\PageControl.cs" />
     <Compile Include="Model\Repository\DcmFindStudyLevelView.cs" />
+    <Compile Include="Model\Repository\QueryRetrieveQueryResultModel.cs" />
     <Compile Include="Model\UIQueryField.cs" />
     <Compile Include="Repository\View\DcmFindStudyLevelViewRepository.cs" />
     <Compile Include="Repository\View\StudyWithImageViewRepository.cs" />
     <Compile Include="Runner\SpaceReleaseRunner.cs" />
+    <Compile Include="Service\QueryRetrieveService.cs" />
     <Compile Include="Service\SnackbarMessenger.cs" />
     <Compile Include="Service\HistoryQueryService.cs" />
     <Compile Include="Utility\AutoMapper\Tag2ObjectMapper.cs" />
@@ -237,6 +246,7 @@
     <Compile Include="Service\StudyWithImageFetcher.cs" />
     <Compile Include="Utility\IniHelper.cs" />
     <Compile Include="ViewModel\HistoryPageViewModel.cs" />
+    <Compile Include="ViewModel\QueryRetrieveViewModel.cs" />
     <Compile Include="ViewModel\SettingViewModel.cs" />
     <Compile Include="ViewModel\SplashWindowViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -248,6 +258,10 @@
     <Page Include="View\HistoryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\QueryRetrievePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SettingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -270,6 +284,9 @@
     </Compile>
     <Compile Include="View\HistoryPage.xaml.cs">
       <DependentUpon>HistoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QueryRetrievePage.xaml.cs">
+      <DependentUpon>QueryRetrievePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
@@ -318,6 +335,7 @@
     <None Include="gridDefine.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="QRCondition.json" />
     <None Include="settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

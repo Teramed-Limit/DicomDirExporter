@@ -1,0 +1,189 @@
+﻿<UserControl
+    x:Class="DicomDirExporter.View.QueryRetrievePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{DynamicResource MaterialDesignPaper}"
+    DataContext="{Binding Source={StaticResource Locator}, Path=QueryRetrieve}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="16"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <Style BasedOn="{StaticResource MaterialDesignDataGrid}" TargetType="{x:Type DataGrid}">
+                <Setter Property="AutoGenerateColumns" Value="False" />
+                <Setter Property="CanUserSortColumns" Value="False" />
+                <Setter Property="EnableColumnVirtualization" Value="True" />
+                <Setter Property="EnableRowVirtualization" Value="True" />
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="IsSynchronizedWithCurrentItem" Value="True" />
+                <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True" />
+                <Setter Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="True" />
+                <Setter Property="VirtualizingPanel.VirtualizationMode" Value="Recycling" />
+            </Style>
+
+            <Style x:Key="VerticalPanel" TargetType="{x:Type StackPanel}">
+                <Setter Property="Margin" Value="0,2" />
+                <Setter Property="Orientation" Value="Vertical" />
+            </Style>
+
+            <Style x:Key="HorizontalStackPanel" TargetType="{x:Type StackPanel}">
+                <Setter Property="Margin" Value="0,2" />
+                <Setter Property="Orientation" Value="Horizontal" />
+            </Style>
+
+            <Style x:Key="HorizontalWrapPanel" TargetType="{x:Type WrapPanel}">
+                <Setter Property="Margin" Value="0,2" />
+                <Setter Property="Orientation" Value="Horizontal" />
+            </Style>
+
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="2" />
+            </Style>
+
+            <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="{x:Type Button}">
+                <Setter Property="Margin" Value="2" />
+            </Style>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <DockPanel Margin="15,5" LastChildFill="True">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--  Query panel  -->
+            <WrapPanel
+                Grid.Row="0"
+                Grid.Column="0"
+                Orientation="Vertical">
+
+                <WrapPanel Style="{StaticResource HorizontalWrapPanel}">
+                    <ItemsControl ItemsSource="{Binding QueryFields}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+
+                                    <StackPanel.Resources />
+
+                                    <TextBox
+                                        Width="160"
+                                        Margin="4"
+                                        Padding="6"
+                                        materialDesign:HintAssist.Hint="{Binding Label}"
+                                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                        Text="{Binding Value, Mode=TwoWay}"
+                                        Visibility="{Binding Path=UIType, ConverterParameter=TextBox, Converter={StaticResource UIQueryFieldTypeVisibleConverter}}" />
+
+                                    <ComboBox
+                                        Width="160"
+                                        Margin="4"
+                                        Padding="6"
+                                        materialDesign:HintAssist.Hint="{Binding Label}"
+                                        Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                        Text="{Binding Value, Mode=TwoWay}"
+                                        Visibility="{Binding Path=UIType, ConverterParameter=ComboBox, Converter={StaticResource UIQueryFieldTypeVisibleConverter}}" />
+
+                                    <DatePicker
+                                        Width="160"
+                                        Margin="4"
+                                        Padding="6"
+                                        materialDesign:HintAssist.Hint="{Binding Label}"
+                                        Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                        Text="{Binding Value, Mode=TwoWay}"
+                                        Visibility="{Binding Path=UIType, ConverterParameter=DatePicker, Converter={StaticResource UIQueryFieldTypeVisibleConverter}}" />
+
+                                    <Button
+                                        x:Name="QueryButton"
+                                        Width="60"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Command="{Binding Source={StaticResource Locator}, Path=QueryRetrieve.QueryCommand}">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="Magnify" />
+                                    </Button>
+                                </StackPanel>
+
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource IsLastItemInContainerConverter}}" Value="False">
+                                        <Setter TargetName="QueryButton" Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </WrapPanel>
+            </WrapPanel>
+
+            <!--  Grid data  -->
+            <DataGrid
+                x:Name="QRResultGrid"
+                Grid.Row="1"
+                Grid.Column="0"
+                ItemsSource="{Binding QueryResult}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="1*"
+                        Binding="{Binding PatientName}"
+                        Header="Patient name" />
+                    <DataGridTextColumn
+                        Width="1*"
+                        Binding="{Binding PatientID}"
+                        Header="Patient id" />
+                    <DataGridTextColumn
+                        Width="1*"
+                        Binding="{Binding AccessionNumber}"
+                        Header="Accession no." />
+                    <DataGridTextColumn
+                        Width="100"
+                        Binding="{Binding Modality}"
+                        Header="Modality" />
+                    <DataGridTextColumn
+                        Width="1*"
+                        Binding="{Binding StudyDescription}"
+                        Header="Study desc." />
+                    <DataGridTextColumn
+                        Width="100"
+                        Binding="{Binding StudyDate}"
+                        Header="Study date" />
+                    <DataGridTemplateColumn Width="120" Header="">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Command="{Binding QueryRetrieve.RetrieveCommand}"
+                                    CommandParameter="{Binding ElementName=QRResultGrid, Path=SelectedIndex}"
+                                    Content="Retrieve"
+                                    DataContext="{Binding Source={StaticResource Locator}}"
+                                    Style="{StaticResource GridCellButton}"
+                                    ToolTip="Retrieve Image" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+</UserControl>

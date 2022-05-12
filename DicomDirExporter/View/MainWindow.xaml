@@ -118,6 +118,7 @@
                                 x:Name="MenuToggleButton"
                                 AutomationProperties.Name="HamburgerToggleButton"
                                 IsChecked="False"
+                                Cursor="Hand"
                                 Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
 
                             <Button

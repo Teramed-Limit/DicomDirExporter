@@ -2,8 +2,11 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Media;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using DicomDirExporter.DicomService;
+using DicomDirExporter.Interface;
 using DicomDirExporter.Logic;
 using DicomDirExporter.Model.AppConfig;
 using DicomDirExporter.Service;
@@ -43,6 +46,7 @@ namespace DicomDirExporter.ViewModel
             RemovePacsSetCommand = new RelayCommand(OnRemovePacsSet);
             AddPacsSetCommand = new RelayCommand(OnAddPacsSet);
             TestSqlConnectCommand = new RelayCommand(OnTestSqlConnection);
+            TestCEchoCommand = new RelayCommand(OnTestCEcho);   //ADD 20220505 Oscar
         }
 
         public ICommand SaveCommand { get; }
@@ -50,6 +54,7 @@ namespace DicomDirExporter.ViewModel
         public ICommand AddPacsSetCommand { get; }
         public ICommand RemovePacsSetCommand { get; }
         public ICommand TestSqlConnectCommand { get; }
+        public ICommand TestCEchoCommand { get; }   //ADD 20220505 Oscar
 
         public Config ConfigSet
         {
@@ -142,6 +147,23 @@ namespace DicomDirExporter.ViewModel
                     TestResult = "Test connection fail.";
                 }
             }
+        }
+
+        /// <summary>
+        /// C-Echo´ú¸Õ ADD 20220505 Oscar
+        /// </summary>
+        public async void OnTestCEcho()
+        {
+            TestResult = "Testing";
+
+            IDicomSCUSetting setting = new ServiceBaseSetting();
+            setting.CalledAE = _config.RetrieveSetting.CalledAE;
+            setting.CallingAE = _config.RetrieveSetting.CallingAE;
+            setting.CalledIP = _config.RetrieveSetting.CalledIP;
+            setting.CalledPort = _config.RetrieveSetting.CalledPort;
+            CEchoSCU<IDicomSCUSetting, string, string> scu = new CEchoSCU<IDicomSCUSetting, string, string>(setting, "", "");
+            await scu.Execute();
+            TestResult = scu.ResultMessage;
         }
     }
 }

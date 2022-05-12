@@ -26,14 +26,22 @@
             materialDesign:ShadowAssist.ShadowEdges="Top"
             Background="{DynamicResource MaterialDesignPaper}"
             DockPanel.Dock="Bottom">
-            <Button
+            <Grid>
+                <TextBlock
+                                    Margin="0,8,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom"
+                                    Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                    Text="{Binding Setting.TestResult}" />
+                <Button
                 Width="160"
                 HorizontalAlignment="Right"
                 Command="{Binding Setting.SaveCommand}">
-                Save and Restart
-            </Button>
+                    Save and Restart
+                </Button>
+            </Grid>
         </materialDesign:Card>
-
+        
         <Grid Width="Auto" Height="Auto">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -84,7 +92,7 @@
                                 Height="18"
                                 Margin="0,0,4,0"
                                 Fill="{StaticResource PrimaryHueLightBrush}" />
-                            <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Client Setting" />
+                            <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Client Setting (C-Store SCU)" />
                         </StackPanel>
 
                         <!--  PACS  -->
@@ -156,7 +164,7 @@
                                     Height="18"
                                     Margin="0,0,4,0"
                                     Fill="{StaticResource PrimaryHueLightBrush}" />
-                                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Server Setting" />
+                                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Server Setting (C-Store SCP)" />
                             </StackPanel>
 
                             <StackPanel Margin="6">
@@ -178,6 +186,63 @@
                             </StackPanel>
                         </StackPanel>
 
+                        <!-- C-Move setting-->
+                        <StackPanel Margin="0,6">
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle
+                                    Width="8"
+                                    Height="18"
+                                    Margin="0,0,4,0"
+                                    Fill="{StaticResource PrimaryHueLightBrush}" />
+                                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Query Retreieve Setting" />
+                            </StackPanel>
+
+                            <StackPanel Margin="6" Grid.Column="2" Grid.Row="1">
+                                <TextBox
+                                    Width="200"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="Called Port"
+                                    PreviewTextInput="AllowNumber"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding Setting.ConfigSet.RetrieveSetting.CalledPort, Mode=TwoWay}" />
+                                <TextBox
+                                    Width="200"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="Called IP"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding Setting.ConfigSet.RetrieveSetting.CalledIP, Mode=TwoWay}" />
+                                <TextBox
+                                    Width="200"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="Called AE"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding Setting.ConfigSet.RetrieveSetting.CalledAE, Mode=TwoWay}" />
+                                <TextBox
+                                    Width="200"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="Calling AE"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding Setting.ConfigSet.RetrieveSetting.CallingAE, Mode=TwoWay}" />
+                                <TextBox
+                                    Width="200"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="Destination AE"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding Setting.ConfigSet.RetrieveSetting.DestinationAE, Mode=TwoWay}" />
+                                <Button
+                                    Margin="0,8,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom"
+                                    Command="{Binding Setting.TestCEchoCommand}"
+                                    Content="Test (C-Echo SCU)" />
+                            </StackPanel>
+                        </StackPanel>
+
                         <!--  DB setting  -->
                         <StackPanel Margin="0,3">
                             <StackPanel Orientation="Horizontal">
@@ -186,7 +251,7 @@
                                     Height="18"
                                     Margin="0,0,4,0"
                                     Fill="{StaticResource PrimaryHueLightBrush}" />
-                                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="DB Setting" />
+                                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Database Setting" />
                             </StackPanel>
 
                             <StackPanel Margin="6">
@@ -224,13 +289,7 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Bottom"
                                     Command="{Binding Setting.TestSqlConnectCommand}"
-                                    Content="Test" />
-                                <TextBlock
-                                    Margin="0,8,0,0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Bottom"
-                                    Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                                    Text="{Binding Setting.TestResult}" />
+                                    Content="Test (Database connection)" />
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>

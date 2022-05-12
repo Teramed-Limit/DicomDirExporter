@@ -45,12 +45,14 @@ namespace DicomDirExporter.ViewModel
             // Page
             SimpleIoc.Default.Register<SettingViewModel>();
             SimpleIoc.Default.Register<HistoryPageViewModel>();
+            SimpleIoc.Default.Register<QueryRetrieveViewModel>(); //ADD 20220505 Oscar
         }
 
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
 
         public SettingViewModel Setting => ServiceLocator.Current.GetInstance<SettingViewModel>();
         public HistoryPageViewModel History => ServiceLocator.Current.GetInstance<HistoryPageViewModel>();
+        public QueryRetrieveViewModel QueryRetrieve => ServiceLocator.Current.GetInstance<QueryRetrieveViewModel>();  //ADD 20220505 Oscar
 
         public SplashWindowViewModel SplashWindowViewModel =>
             ServiceLocator.Current.GetInstance<SplashWindowViewModel>();

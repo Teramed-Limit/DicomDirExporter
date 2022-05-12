@@ -50,8 +50,13 @@ namespace DicomDirExporter.ViewModel
             // Set starting page
             _pages = new ObservableCollection<PageControl>();
             if (_isConfigValid)
+            {
                 _pages.Add(new PageControl
                 { Name = "History", UserControl = new HistoryPage(), Icon = "History", Active = "Red" });
+                //ADD 20220504 Oscar
+                _pages.Add(new PageControl
+                { Name = "Query Retrieve", UserControl = new QueryRetrievePage(), Icon = "Download", Active = "Black" });
+            }
 
             _pages.Add(new PageControl
             { Name = "Setting", UserControl = new SettingPage(), Icon = "Cogs", Active = "Black" });

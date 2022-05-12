@@ -20,6 +20,7 @@ namespace DicomDirExporter.Service
         private static ConfigService _instance;
         private readonly Config _config;
         private readonly GridQueryDefine _gridQueryDefine;
+        private readonly GridQueryDefine _gridQRQueryDefine;    //ADD 20220506 Oscar
         public bool ConfigValid;
 
 
@@ -35,6 +36,13 @@ namespace DicomDirExporter.Service
             {
                 var json = r.ReadToEnd();
                 _gridQueryDefine = JsonConvert.DeserializeObject<GridQueryDefine>(json);
+            }
+
+            //ADD 20220506 Oscar
+            using (var r = new StreamReader(Path.Combine(Application.StartupPath, "QRCondition.json")))
+            {
+                var json = r.ReadToEnd();
+                _gridQRQueryDefine = JsonConvert.DeserializeObject<GridQueryDefine>(json);
             }
         }
 
@@ -76,6 +84,12 @@ namespace DicomDirExporter.Service
         public GridQueryDefine GetGridQueryDefine()
         {
             return _gridQueryDefine;
+        }
+
+        //ADD 20220506 Oscar Query Retrieve 畫面的查詢條件
+        public GridQueryDefine GetQRQueryDefine()
+        {
+            return _gridQRQueryDefine;
         }
 
         public Config GetNewInstanceSetting()

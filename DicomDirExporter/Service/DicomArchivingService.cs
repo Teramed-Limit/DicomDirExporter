@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using DicomDirExporter.Repository;
+using Microsoft.Data.SqlClient;
 using RepoDb;
 using System;
 
@@ -16,7 +17,7 @@ namespace DicomDirExporter.Service
                 {
                     try
                     {
-                        connection.Merge(dicomLevelObject, transaction: transaction);
+                        connection.Merge(dicomLevelObject, transaction: transaction,trace: new SqlTracer());
                         transaction.Commit();
                     }
                     catch (Exception e)
