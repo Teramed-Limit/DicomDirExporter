@@ -57,7 +57,7 @@ namespace DicomDirExporter.Utility.DicomHelper
 
             logger.Debug($"{tag}: {value}");
 
-            if (_collectItem != null)
+            if (_collectItem != null && Level == 0) //Modify 20220512 Oscar fixed reference from Burn Workstation
                 _collectItem.Invoke(element.Tag.DictionaryEntry.Keyword, value);
 
             return true;
