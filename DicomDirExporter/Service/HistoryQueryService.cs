@@ -79,9 +79,10 @@ namespace DicomDirExporter.Service
                     operation = field.Operation;
                     if (field.UIType == "DatePicker")
                     {
+                        //Modify 20220513 Oscar yyyyMMdd
                         value.Add(DateTime
                             .ParseExact(field.Value, sysFormat, CultureInfo.InvariantCulture,
-                                System.Globalization.DateTimeStyles.AllowWhiteSpaces).ToString("yyyy-MM-dd HH:mm:ss"));
+                                System.Globalization.DateTimeStyles.AllowWhiteSpaces).ToString("yyyyMMdd"));
                     }
                     else
                     {
