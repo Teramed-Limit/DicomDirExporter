@@ -1,9 +1,9 @@
 {
   "DbSetting": {
     "UserId": "sa",
-    "Password": "oscar",
+    "Password": "admin",
     "DatabaseName": "DicomDirExporter",
-    "ServerName": "OSCAR-UX430"
+    "ServerName": "localhost"
   },
   "PacsSetting": [
     {
