@@ -28,15 +28,31 @@ namespace DicomDirExporter.Service
             GC.SuppressFinalize(this);
         }
 
-        public async Task BuildJob(string studyInsUid, string exportDirName)
+        /// <summary>
+        /// Query files and Build DICOMDIR and files. Modify 20241105 Oscar
+        /// </summary>
+        /// <param name="studyInsUid"></param>
+        /// <param name="exportDirName"></param>
+        /// <returns></returns>
+        public async Task<bool> BuildJob(string studyInsUid, string exportDirName)
         {
-            // query study with studyInsUid
-            var images = await _studyWithImageFetcher.FetchStudies(studyInsUid);
-            await BuildDicomDirAsync(studyInsUid, exportDirName, images);
+            try
+            {
+                // query study with studyInsUid
+                var images = await _studyWithImageFetcher.FetchStudies(studyInsUid);
+                return await BuildDicomDirAsync(studyInsUid, exportDirName, images);
+            }
+            catch { return false; }
         }
 
-
-        private async Task BuildDicomDirAsync(
+        /// <summary>
+        /// Build DICOMDIR and files. Modify 20241105 Oscar
+        /// </summary>
+        /// <param name="studyInsUid"></param>
+        /// <param name="exportDirName"></param>
+        /// <param name="images"></param>
+        /// <returns></returns>
+        private async Task<bool> BuildDicomDirAsync(
             string studyInsUid, string exportDirName, IEnumerable<StudyWithImageView> images)
         {
             // disk path
@@ -80,11 +96,13 @@ namespace DicomDirExporter.Service
 
                 DirectoryHelper.CopyAllFileInFolder(_cdViewerPath, path + "\\");
                 await dicomDir.SaveAsync(dicomDirPath);
+
+                return true;
             }
             catch (Exception e)
             {
                 logger.Error($"Build dicomdir failed, study: {studyInsUid}, reason: {e.Message}");
-                throw;
+                return false;
             }
         }
 

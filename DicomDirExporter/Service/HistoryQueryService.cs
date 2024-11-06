@@ -1,10 +1,13 @@
 ﻿using DicomDirExporter.Model;
 using DicomDirExporter.Model.Repository;
+using DicomDirExporter.Repository.Table;
 using DicomDirExporter.Repository.View;
 using RepoDb;
 using RepoDb.Enumerations;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Dynamic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -93,6 +96,27 @@ namespace DicomDirExporter.Service
             }
 
             return queryFields;
+        }
+
+        /// <summary>
+        /// Update export status ADD 20241105 Oscar
+        /// </summary>
+        /// <param name="studyInstanceUID"></param>
+        /// <returns></returns>
+
+        public async Task<bool> UpdateExportStatus(string studyInstanceUID)
+        {
+            if (string.IsNullOrWhiteSpace(studyInstanceUID))
+                return false;
+
+            string connectionString = ConfigService.GetInstance().GetConnectionString();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var model = new { StudyInstanceUID = studyInstanceUID, Exported = "Y" };
+                if (await connection.UpdateAsync(ClassMappedNameCache.Get<DicomStudy>(), model) == 1)
+                    return true;
+            }
+            return false;
         }
     }
 }

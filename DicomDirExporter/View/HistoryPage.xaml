@@ -178,6 +178,10 @@
                         Width="100"
                         Binding="{Binding StudyDate}"
                         Header="Study date" />
+                    <DataGridTextColumn
+                        Width="100"
+                        Binding="{Binding Exported}"
+                        Header="Export" />
                     <DataGridTemplateColumn Width="120" Header="">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

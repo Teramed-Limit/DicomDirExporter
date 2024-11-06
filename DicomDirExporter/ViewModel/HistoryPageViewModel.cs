@@ -123,7 +123,17 @@ namespace DicomDirExporter.ViewModel
                 var study = QueryResult[studyIdx];
                 var exportDirName = $"{study.PatientID}({study.PatientID})-{study.StudyDate}";
                 _snackbarMessenger.ShowInfoMessage($"Export study: {study.AccessionNumber}");
-                await _jobBuilder.BuildJob(study.StudyInstanceUID, exportDirName);
+                //Modify 20241105 Oscar
+                if(await _jobBuilder.BuildJob(study.StudyInstanceUID, exportDirName))
+                {
+                    //if export success, update status into database and binding display list.
+                    if(await _historyQueryService.UpdateExportStatus(study.StudyInstanceUID))
+                    {
+                        var result = QueryResult.FirstOrDefault(item => item.StudyInstanceUID == study.StudyInstanceUID);
+                        if (result != null)
+                            result.Exported = "Y";
+                    }
+                }
             }
             catch (Exception e)
             {

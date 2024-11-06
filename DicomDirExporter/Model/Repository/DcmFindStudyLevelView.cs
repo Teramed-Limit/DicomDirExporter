@@ -1,6 +1,9 @@
-﻿namespace DicomDirExporter.Model.Repository
+﻿using System.ComponentModel;
+
+namespace DicomDirExporter.Model.Repository
 {
-    public class DcmFindStudyLevelView
+    //Modify 20241105 Oscar for update UI
+    public class DcmFindStudyLevelView : INotifyPropertyChanged
     {
         private string _modality;
         private string _patientID;
@@ -11,6 +14,7 @@
         private string _accessionNumber;
         private string _performingPhysicianName;
         private string _studyInstanceUID;
+        private string _exported;   //ADD 20241105 Oscar 匯出狀態
 
         public string PatientID
         {
@@ -65,6 +69,25 @@
             get => _modality;
             set => _modality = value?.Trim();
         }
-    }
 
+        //ADD 20241105 Oscar 匯出狀態
+        public string Exported
+        {
+            get => _exported;
+            set
+            {
+                _exported = value;
+                OnPropertyChanged(nameof(Exported));
+            }
+        }
+
+        /// <summary>
+        /// ADD 20241105 Oscar when set property, update UI.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
 }
